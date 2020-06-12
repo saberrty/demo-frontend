@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { apiCommon } from "./common/api";
+import { Api } from "./common/api";
 
 export default class App extends Component {
     sendMessage = () => {
-        apiCommon.requestData({
-            method: "get",
-            url: "/users/users_list"
-        }).then(({ data }) => console.info(data));
+        Api.request({
+            method: "post",
+            url: "/users/delete_user",
+            data: {
+                id: 10
+            }
+        })
+        // apiCommon.requestData({
+        //     method: "get",
+        //     url: "/users/users_list"
+        // }).then(({ data }) => console.info(data));
     }
 
     render() {
