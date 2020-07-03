@@ -100,10 +100,10 @@ module.exports = function(proxy, allowedHost) {
     public: allowedHost,
     // `proxy` is run between `before` and `after` `webpack-dev-server` hooks
       proxy: {
-          '/users': {
-              target: 'http://127.0.0.1:3000',
+          "/users": {
+              target: "http://127.0.0.1:3000",
               changeOrigin: true,
-              secure: false,
+              secure: false
           },
       },
     before(app, server) {
