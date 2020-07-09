@@ -8,12 +8,13 @@ import { List, Button } from "antd";
 @observer
 class Account extends Component {
     componentDidMount() {
-        const { history, match } = this.props;
+        const { history } = this.props;
         const { getUsers, self } = this.props.rootStore;
         if (!self) {
             history.push("/")
+        } else {
+            getUsers();
         }
-        getUsers();
     }
 
     render() {

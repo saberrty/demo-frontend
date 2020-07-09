@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer  } from "mobx-react";
 import { Form, Input, Button, Radio } from 'antd';
 import { withRouter } from "react-router-dom";
+const sha1 = require("js-sha1");
 
 const layout = {
     labelCol: {
@@ -27,11 +28,19 @@ class Home extends Component {
         isRegister: false
     }
 
+    componentDidMount() {
+        const { history } = this.props;
+        const { self } = this.props.rootStore;
+        if (self) {
+            history.push(`/${self.id}`)
+        }
+    }
+
     onFinish = ({ username, password }) => {
         const { isRegister } = this.state;
         const { history } = this.props;
         const { login, addUser } = this.props.rootStore;
-        isRegister ? addUser(username, password, history) : login(username, password, history);
+        isRegister ? addUser(username, password, history) : login(username, sha1(password), history);
     }
 
     onFinishFailed = errorInfo => {

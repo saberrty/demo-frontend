@@ -1,11 +1,15 @@
-import { action, computed, observable  } from "mobx";
-// import { setter  } from "mobx-decorators";
+import { action, observable  } from "mobx";
+import { setter  } from "mobx-decorators";
 import { Api } from "../common/api";
 
 class RootStore {
     @observable users = [];
 
     @observable self = null;
+
+    @setter
+    @observable
+    loading = true;
 
     @action.bound
     login(username, password, history) {
@@ -18,8 +22,22 @@ class RootStore {
             }
         }).then(({ data }) => {
             this.self = data.user;
+            localStorage.setItem("sessionId",this.self.session_id);
             history.push(`/${data.user.id}`);
         })
+    }
+
+    @action.bound
+    authSession() {
+        const session = localStorage.getItem("sessionId");
+        if (session) {
+            return Api.request({
+                method: "post",
+                url: "/users/auth_session",
+                data: { session }
+            }).then(({ data }) => this.self = data.user)
+        }
+        return Promise.reject();
     }
 
     @action.bound
