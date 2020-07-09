@@ -9,9 +9,11 @@ import Account from "./components/account";
 @observer
 class App extends Component {
     componentDidMount() {
-        const { authSession } = this.props.rootStore;
-        this.props.rootStore.setLoading(true);
-        authSession().finally(() => this.props.rootStore.setLoading(false));
+        if (localStorage.getItem("sessionId")) {
+            const { authSession } = this.props.rootStore;
+            this.props.rootStore.setLoading(true);
+            authSession().finally(() => this.props.rootStore.setLoading(false));
+        }
     }
 
     render() {

@@ -9,7 +9,7 @@ class RootStore {
 
     @setter
     @observable
-    loading = true;
+    loading = false;
 
     @action.bound
     login(username, password, history) {
@@ -22,7 +22,7 @@ class RootStore {
             }
         }).then(({ data }) => {
             this.self = data.user;
-            localStorage.setItem("sessionId",this.self.session_id);
+            localStorage.setItem("sessionId", this.self.session_id);
             history.push(`/${data.user.id}`);
         })
     }
@@ -70,6 +70,18 @@ class RootStore {
             method: "get",
             url: "/users/users_list"
         }).then(({ data }) => this.users = data.users)
+    }
+
+    @action.bound
+    logout() {
+        return Api.request({
+            method: "post",
+            url: "/users/logout",
+            data: { userId: this.self.id }
+        }).then(() => {
+            localStorage.removeItem("sessionId");
+            this.self = null;
+        })
     }
 }
 

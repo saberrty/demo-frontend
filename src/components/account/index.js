@@ -18,17 +18,21 @@ class Account extends Component {
     }
 
     render() {
-        const { deleteUser, users } = this.props.rootStore;
+        const { history } = this.props;
+        const { deleteUser, users, logout } = this.props.rootStore;
         return (
-            <List
-                dataSource={users}
-                renderItem={u => (
-                    <List.Item>
-                        {u.username}
-                        <Button onClick={() => deleteUser(u.username)}>Delete</Button>
-                    </List.Item>
-                )}
-            />
+            <>
+                <Button onClick={() => logout().then(() => history.push("/"))}>Logout</Button>
+                <List
+                    dataSource={users}
+                    renderItem={u => (
+                        <List.Item>
+                            {u.username}
+                            <Button onClick={() => deleteUser(u.username)}>Delete</Button>
+                        </List.Item>
+                    )}
+                />
+            </>
         );
     }
 }
