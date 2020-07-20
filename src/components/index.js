@@ -6,7 +6,7 @@ const sha1 = require("js-sha1");
 
 const layout = {
     labelCol: {
-            span: 8,
+            span: 4,
     },
     wrapperCol: {
             span: 16,
@@ -15,7 +15,7 @@ const layout = {
 
 const tailLayout = {
     wrapperCol: {
-            offset: 8,
+            offset: 4,
             span: 16,
     }
 };
@@ -50,7 +50,7 @@ class Home extends Component {
     render() {
         const { isRegister } = this.state;
         return (
-            <>
+            <div style={{ textAlign: "center", padding: "20px 50px 20px 50px" }}>
                 <Radio.Group value={isRegister} onChange={e => this.setState({ isRegister: e.target.value })}>
                     <Radio.Button value={false}>Login</Radio.Button>
                     <Radio.Button value={true}>Register</Radio.Button>
@@ -63,6 +63,7 @@ class Home extends Component {
                     }}
                     onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
+                    style={{ marginTop: "30px" }}
                 >
                     <Form.Item
                         label="Username"
@@ -96,7 +97,7 @@ class Home extends Component {
                         </Button>
                     </Form.Item>
                 </Form>
-            </>
+            </div>
         );
     }
 }

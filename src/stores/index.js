@@ -56,11 +56,11 @@ class RootStore {
     }
 
     @action.bound
-    deleteUser(username) {
+    deleteUser(id) {
         return Api.request({
             method: "post",
             url: "/users/delete_user",
-            data: { username }
+            data: { id }
         }).then(({ data }) => this.users = data.users)
     }
 

@@ -28,7 +28,7 @@ class Account extends Component {
                     renderItem={u => (
                         <List.Item>
                             {u.username}
-                            <Button onClick={() => deleteUser(u.username)}>Delete</Button>
+                            <Button onClick={() => deleteUser(u.id)}>Delete</Button>
                         </List.Item>
                     )}
                 />
